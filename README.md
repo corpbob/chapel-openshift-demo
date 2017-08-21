@@ -2,4 +2,4 @@
 
 For an explanation on how to use this project, please visit: 
 
-https://bobbycorpus.wordpress.com/2017/08/21/prototyping-para…ams-in-openshift/
+https://bobbycorpus.wordpress.com/2017/08/21/prototyping-parallel-programs-on-openshift/
