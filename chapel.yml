@@ -19,7 +19,7 @@ objects:
       app: chapel
     name: chapel
   spec:
-    replicas: 4
+    replicas: 2
     selector:
       app: chapel
       deploymentconfig: chapel
@@ -36,7 +36,7 @@ objects:
             command:
               - /bin/bash
               - -c
-              - echo "export GASNET_MASTERIP=\$MY_NODE_IP" > /home/chapel/mnt/exports && for pod in `oc get pods -l app=chapel|grep chapel|awk '{print $1}'`; do oc describe pod $pod |grep ^IP:|awk '{print $2}'; done|awk 'BEGIN { x="" } {x = x$1" "} END {print "export GASNET_SSH_SERVERS=\""x"\""}' >> /home/chapel/mnt/exports && echo "Hello World" && sleep 100
+              - echo "export GASNET_MASTERIP=\$MY_NODE_IP" > /home/chapel/mnt/exports && echo "export GASNET_SSH_OPTIONS=\"-p 2222\"" >> /home/chapel/mnt/exports && for pod in `oc get pods -l app=chapel|grep chapel|awk '{print $1}'`; do oc describe pod $pod |grep ^IP:|awk '{print $2}'; done|awk 'BEGIN { x="" } {x = x$1" "} END {print "export GASNET_SSH_SERVERS=\""x"\""}' >> /home/chapel/mnt/exports && echo "Hello World" && sleep 10
             containerName: chapel-executor
             volumes:
               - chapel-common
