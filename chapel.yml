@@ -19,7 +19,7 @@ objects:
       app: chapel
     name: chapel
   spec:
-    replicas: 2
+    replicas: 4
     selector:
       app: chapel
       deploymentconfig: chapel

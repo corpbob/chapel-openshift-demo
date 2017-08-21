@@ -10,6 +10,7 @@ RUN cd /tmp && curl -L https://github.com/openshift/origin/releases/download/v1.
 RUN cd /home/chapel && curl -L https://github.com/chapel-lang/chapel/releases/download/1.15.0/chapel-1.15.0.tar.gz -o chapel.tar.gz && tar xzf chapel.tar.gz && cd chapel-1.15.0 && source util/quickstart/setchplenv.bash
 
 RUN cd $CHPL_HOME && make 
+COPY run.sh /home/chapel
 RUN chmod +x /home/chapel/run.sh &&  chown -R chapel.chapel /home/chapel
 RUN ssh-keygen -A
 RUN sed -i.bak -e "\$aStrictHostKeyChecking no\nUserKnownHostsFile=/dev/null" /etc/ssh/ssh_config
@@ -21,6 +22,5 @@ RUN ssh-keygen -t rsa -N "" -f /home/chapel/.ssh/id_rsa
 RUN cp /home/chapel/.ssh/id_rsa.pub /home/chapel/.ssh/authorized_keys
 RUN chmod 600 /home/chapel/.ssh/authorized_keys
 RUN cd $CHPL_HOME && chpl -o /home/chapel/hello6-taskpar-dist $CHPL_HOME/examples/hello6-taskpar-dist.chpl
-COPY run.sh /home/chapel
 EXPOSE 2222
 ENTRYPOINT /usr/sbin/sshd -E /var/log/sshd.log  && tail -f /var/log/sshd.log

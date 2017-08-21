@@ -16,7 +16,6 @@ coforall loc in Locales {
     var jend = jstart + blockSize;
 
     for (r,s) in {istart + 1..iend, jstart + 1..jend} {
-      writeln('istart = ' + istart + ', iend=' + iend + ', jstart=' + jstart + ',jend=' + jend);
       B(r,s) = r+s;
       A(r,s) = 2*r + s;
     }
@@ -46,10 +45,7 @@ coforall loc in Locales {
       var V=get_block_matrix(B[vec,vec],k,j,blockSize);
       var P = mat_mul(U,V);
       coforall (s,t) in { 1..2,1..2 } {
-        if loc.id == 1 {
-          writeln("i,j=", s+i, ",", t+j);
-        }
-        W(s,t) += P(s,t); 
+         W(s,t) += P(s,t); 
       }
     }
   }
